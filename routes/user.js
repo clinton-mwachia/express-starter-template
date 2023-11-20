@@ -135,4 +135,36 @@ router.post(`/login`, async (req, res) => {
   }
 });
 
+/**
+ * update pasword
+ */
+router.put(`/changepwd/:id`, async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: "invalid user id" });
+  }
+  try {
+    const userFind = await User.findById(req.params.id);
+    if (bcrypt.compareSync(req.body.oldPassword, userFind.password)) {
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { password: bcrypt.hashSync(req.body.password, 10) },
+        {
+          new: true,
+        }
+      );
+      if (!user) {
+        return res.status(400).json({ message: "password cannot be updated" });
+      } else {
+        return res
+          .status(200)
+          .json({ success: true, message: "Password changed" });
+      }
+    } else {
+      return res.status(500).json({ message: "wrong old password" });
+    }
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
+
 module.exports = router;
