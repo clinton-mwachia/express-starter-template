@@ -21,6 +21,11 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 /**
+ * custom middlewares
+ */
+const NotFound = require("./helpers/notFound");
+
+/**
  * routes
  */
 app.use(`${process.env.API}/user`, usersRouter);
@@ -34,6 +39,8 @@ mongoose
   .catch((err) => {
     console.error("could not connect to database");
   });
+
+app.use(NotFound);
 
 app.listen(process.env.PORT, (res) => {
   console.log(
