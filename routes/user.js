@@ -82,4 +82,26 @@ router.delete(`/:id`, async (req, res) => {
   }
 });
 
+/**
+ * update an existing user
+ */
+router.put(`/:id`, async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: "invalid user id" });
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!user) {
+      return res.status(400).json({ message: "user cannot be updated" });
+    } else {
+      return res.send(user);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
