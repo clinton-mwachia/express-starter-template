@@ -5,7 +5,7 @@
 # Express Starter Template
 
 [![NodeJS Version](https://img.shields.io/badge/NodeJS-20.9.0-green.svg)](https://nodejs.org/en)
-[![Express Version](https://img.shields.io/badge/fastify-4.24.2-blue.svg)](https://expressjs.com/)
+[![Express Version](https://img.shields.io/badge/express-4.18.2-blue.svg)](https://expressjs.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
