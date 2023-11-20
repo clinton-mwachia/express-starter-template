@@ -104,4 +104,35 @@ router.put(`/:id`, async (req, res) => {
   }
 });
 
+/**
+ * user log in
+ */
+router.post(`/login`, async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    const secret = process.env.SECRET;
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    } else {
+      if (user && bcrypt.compareSync(req.body.password, user.password)) {
+        const token = jwt.sign({ userid: user.id }, secret, {
+          expiresIn: "1h",
+        });
+        return res.status(200).json({
+          id: user.id,
+          role: user.role,
+          token: token,
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ message: "password/username is incorrect" });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
 module.exports = router;
