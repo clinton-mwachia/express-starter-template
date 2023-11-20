@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "username": "clintonMoshe2",
+      "role": "superadmin",
+      "phone": "+25478945674",
+      "password": "clintonMoshe1232"
+    },
+    {
+      "username": "andrewPeters2",
+      "role": "admin",
+      "phone": "+25472945675",
+      "password": "andrewPeters1232"
+    },
+    {
+      "username": "shirleyDoc232",
+      "phone": "+23412945673",
+      "password": "shirleyDoc231232"
+    }
+  ],
+  "todos": [
+    {
+      "user": "655477c25c735241a0d1386e",
+      "title": "UI/UX",
+      "priority": "urgent"
+    },
+    {
+      "user": "655477c25c735241a0d1386e",
+      "title": "API DESIGN",
+      "priority": "low"
+    },
+    {
+      "user": "655478225c735241a0d13872",
+      "title": "UI DESIGN",
+      "priority": "medium"
+    },
+    {
+      "user": "655478225c735241a0d13872",
+      "title": "Plan Lesson",
+      "priority": "urgent"
+    },
+    {
+      "user": "655478225c735241a0d13872",
+      "title": "Set Exam",
+      "priority": "medium"
+    }
+  ]
+}
