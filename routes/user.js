@@ -31,4 +31,20 @@ router.post("/register", async (req, res) => {
   }
 });
 
+/**
+ * get all users
+ */
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    if (!users) {
+      return res.status(404).json({ message: "No user(s) found" });
+    } else {
+      return res.send(users);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
