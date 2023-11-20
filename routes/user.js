@@ -167,4 +167,17 @@ router.put(`/changepwd/:id`, async (req, res) => {
   }
 });
 
+/**
+ * count users
+ */
+router.get(`/get/count`, async (req, res) => {
+  const usercount = await User.countDocuments();
+
+  if (!usercount) {
+    return res.send({ TotalUsers: 0 });
+  } else {
+    return res.send({ TotalUsers: usercount });
+  }
+});
+
 module.exports = router;
