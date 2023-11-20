@@ -4,6 +4,11 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 
 /**
+ * import routes
+ */
+const usersRouter = require("./routes/user");
+
+/**
  * initialise app
  */
 const app = express();
@@ -18,9 +23,7 @@ app.use(morgan("dev"));
 /**
  * routes
  */
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+app.use(`${process.env.API}/user`, usersRouter);
 
 /**
  * connecting to the database
@@ -33,5 +36,7 @@ mongoose
   });
 
 app.listen(process.env.PORT, (res) => {
-  console.log(`Server running on http://localhost:${process.env.PORT}`);
+  console.log(
+    `Server running on http://localhost:${process.env.PORT}${process.env.API}`
+  );
 });
