@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/Expressjs.png" alt="Express Icon" width="300" height="200">
+  <img src="assets/Expressjs.png" alt="Express Icon">
 </p>
 
 # Express Starter Template
