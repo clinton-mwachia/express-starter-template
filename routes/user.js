@@ -180,4 +180,20 @@ router.get(`/get/count`, async (req, res) => {
   }
 });
 
+/**
+ * count users by role
+ * http://localhost:4050/api/v0/user/get/count/role?role=admin
+ */
+router.get(`/get/count/role`, async (req, res) => {
+  const usercount = await User.find({
+    role: req.query.role,
+  }).countDocuments();
+
+  if (!usercount) {
+    return res.send({ TotalUsers: 0 });
+  } else {
+    return res.send({ TotalUsers: usercount });
+  }
+});
+
 module.exports = router;
