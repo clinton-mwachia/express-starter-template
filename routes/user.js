@@ -47,4 +47,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+/**
+ * get user by id
+ */
+router.get("/:id", async (req, res) => {
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).json({ message: "invalid user id" });
+  }
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    } else {
+      return res.send(user);
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
