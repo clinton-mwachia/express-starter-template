@@ -64,4 +64,17 @@ router.get("/:id", async (request, reply) => {
 });
 /** end get todo by id */
 
+/** start get todos by userid */
+router.get("/get/user", async (request, reply) => {
+  try {
+    const todos = await Todo.find({ user: request.query.user })
+      .sort({ createdAt: -1 })
+      .populate({ path: "user", select: "username role phone" });
+    reply.send(todos);
+  } catch (error) {
+    reply.status(500).send({ message: "Error getting todos", error });
+  }
+});
+/** end get todos by userid */
+
 module.exports = router;
