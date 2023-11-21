@@ -33,6 +33,7 @@ app.use(errorHandler);
 /**
  * routes
  */
+app.use(`${process.env.API}`, express.static("public"));
 app.use(`${process.env.API}/user`, usersRouter);
 app.use(`${process.env.API}/todo`, todosRouter);
 

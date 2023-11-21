@@ -8,6 +8,7 @@ function auth() {
     algorithms: ["HS256"],
   }).unless({
     path: [
+      `${API}/`,
       `${API}/user/login`,
       `${API}/user/login/`,
       `${API}/user/register`,
