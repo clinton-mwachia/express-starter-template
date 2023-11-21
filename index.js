@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
  * import routes
  */
 const usersRouter = require("./routes/user");
-
+const todosRouter = require("./routes/todo");
 /**
  * initialise app
  */
@@ -29,6 +29,7 @@ const NotFound = require("./helpers/notFound");
  * routes
  */
 app.use(`${process.env.API}/user`, usersRouter);
+app.use(`${process.env.API}/todo`, todosRouter);
 
 /**
  * connecting to the database
