@@ -8,6 +8,14 @@ const mongoose = require("mongoose");
  */
 const usersRouter = require("./routes/user");
 const todosRouter = require("./routes/todo");
+
+/**
+ * custom middlewares
+ */
+const NotFound = require("./helpers/notFound");
+const auth = require("./helpers/auth");
+const errorHandler = require("./helpers/error-handler");
+
 /**
  * initialise app
  */
@@ -19,11 +27,8 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(morgan("dev"));
-
-/**
- * custom middlewares
- */
-const NotFound = require("./helpers/notFound");
+app.use(auth());
+app.use(errorHandler);
 
 /**
  * routes
