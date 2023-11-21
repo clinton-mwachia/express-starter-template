@@ -141,4 +141,22 @@ router.get("/get/count", async (request, reply) => {
 });
 /** end count all todos */
 
+/** start count todos by priority */
+// http://localhost:4050/todo/count/priority?priority=low
+router.get("/count/priority", async (request, reply) => {
+  try {
+    const todocount = await Todo.find({
+      priority: request.query.priority,
+    }).countDocuments();
+    if (!todocount) {
+      return reply.send({ TotalTodos: 0 });
+    } else {
+      return reply.send({ TotalTodos: todocount });
+    }
+  } catch (error) {
+    return reply.status(500).send({ message: error });
+  }
+});
+/** end count todos by priority*/
+
 module.exports = router;
