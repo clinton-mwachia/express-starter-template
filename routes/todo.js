@@ -126,4 +126,19 @@ router.put("/:id", async (request, reply) => {
 });
 /** end update todo by id */
 
+/** start count all todos */
+router.get("/get/count", async (request, reply) => {
+  try {
+    const todocount = await Todo.countDocuments();
+    if (!todocount) {
+      return reply.send({ TotalTodos: 0 });
+    } else {
+      return reply.send({ TotalTodos: todocount });
+    }
+  } catch (error) {
+    return reply.status(500).send({ message: error });
+  }
+});
+/** end count all todos */
+
 module.exports = router;
