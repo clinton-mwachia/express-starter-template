@@ -90,4 +90,40 @@ router.get("/get/priority", async (request, reply) => {
 });
 /** end get todos by priority */
 
+/** start delete a todo by id */
+router.delete("/:id", async (request, reply) => {
+  try {
+    const todoDel = await Todo.findByIdAndDelete(request.params.id);
+    if (!todoDel) {
+      reply.send({ message: "todo already deleted" });
+    } else {
+      reply.send({ message: "todo deleted" });
+    }
+  } catch (err) {
+    reply
+      .status(500)
+      .send({ message: `Error deleting todo ${request.params.id}`, err });
+  }
+});
+/** end delete a todo by id */
+
+/** start update todo by id */
+router.put("/:id", async (request, reply) => {
+  try {
+    const todo = await Todo.findByIdAndUpdate(request.params.id, request.body, {
+      new: true,
+    });
+    if (!todo) {
+      reply.send({ message: "todo not found!" });
+    } else {
+      reply.send({ message: "todo updated!!!" });
+    }
+  } catch (err) {
+    reply
+      .status(500)
+      .send({ message: `Error updating todo ${request.params.id}`, err });
+  }
+});
+/** end update todo by id */
+
 module.exports = router;
