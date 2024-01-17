@@ -5,6 +5,18 @@ const Todo = require("../models/todo");
 const mongoose = require("mongoose");
 const express = require("express");
 const User = require("../models/user");
+const multer = require("multer");
+const path = require("node:path");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 /**
  * defining the router
@@ -12,14 +24,23 @@ const User = require("../models/user");
 const router = express.Router();
 
 /** start insert a single todo */
-router.post("/register", async (request, reply) => {
+router.post("/register", upload.array("files", 12), async (request, reply) => {
   try {
     const user = await User.findById(request.body.user);
+
+    let urls = [];
 
     if (!user) {
       reply.status(404).send({ message: "User not found" });
     } else {
+      const images = request.files;
+
+      images.map((image) => {
+        urls.push(image.path);
+      });
+
       const todo = new Todo(request.body);
+      todo.files = urls;
       await todo.save();
 
       reply.send({ message: "Todo Added!" });

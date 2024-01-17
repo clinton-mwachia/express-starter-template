@@ -20,6 +20,11 @@ const todoSchema = new mongoose.Schema(
       default: "low",
       enum: ["urgent", "low", "medium"],
     },
+    files: [
+      {
+        type: String,
+      },
+    ],
     due: {
       type: String,
       default: new Date().toLocaleString(),

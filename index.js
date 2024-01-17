@@ -27,7 +27,7 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(auth());
+//app.use(auth());
 app.use(errorHandler);
 
 /**
