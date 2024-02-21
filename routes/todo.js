@@ -8,10 +8,10 @@ const User = require("../models/user");
 const multer = require("multer");
 const path = require("node:path");
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (request, file, cb) {
     cb(null, path.join(__dirname, "../uploads"));
   },
-  filename: function (req, file, cb) {
+  filename: function (request, file, cb) {
     cb(null, file.originalname);
   },
 });
@@ -97,6 +97,35 @@ router.get("/get/user", async (request, reply) => {
   }
 });
 /** end get todos by userid */
+
+/** get todos using server side pagination */
+router.get("/get/pagination", async (request, reply) => {
+  const { page, limit } = request.query;
+  const pageNumber = parseInt(page) || 1;
+  const pageSize = parseInt(limit) || 10;
+  try {
+    const totalTodos = await Todo.countDocuments();
+    const totalPages = Math.ceil(totalTodos / pageSize);
+
+    const todos = await Todo.find()
+      .sort({ createdAt: -1 })
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
+
+    if (!todos) {
+      return reply.status(404).json({ message: "No todos found" });
+    } else {
+      return reply.send({
+        totalPages: totalPages,
+        data: todos,
+        hasMore: page < totalPages,
+      });
+    }
+  } catch (error) {
+    return reply.status(500).json({ message: error.message });
+  }
+});
+/** get todos using server side pagination */
 
 /** start get todos by priority */
 router.get("/get/priority", async (request, reply) => {
