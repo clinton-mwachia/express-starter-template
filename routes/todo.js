@@ -46,7 +46,7 @@ router.post("/register", upload.array("files", 12), async (request, reply) => {
       reply.send({ message: "Todo Added!" });
     }
   } catch (err) {
-    reply.status(500).send({ message: "Error inserting todo", err });
+    reply.status(500).send({ message: "Error inserting todo " + err.message });
   }
 });
 /** end insert a single todo */
@@ -59,7 +59,7 @@ router.get("/", async (request, reply) => {
       .populate({ path: "user", select: "username role phone" });
     reply.send(todos);
   } catch (error) {
-    reply.status(500).send({ message: "Error getting todos", error });
+    reply.status(500).send({ message: "Error getting todos " + error.message });
   }
 });
 /** end get all todos */
@@ -80,7 +80,7 @@ router.get("/:id", async (request, reply) => {
       reply.send(todo);
     }
   } catch (error) {
-    reply.status(500).send({ message: "Error getting todo", error });
+    reply.status(500).send({ message: "Error getting todo " + error.message });
   }
 });
 /** end get todo by id */
@@ -93,7 +93,7 @@ router.get("/get/user", async (request, reply) => {
       .populate({ path: "user", select: "username role phone" });
     reply.send(todos);
   } catch (error) {
-    reply.status(500).send({ message: "Error getting todos", error });
+    reply.status(500).send({ message: "Error getting todos " + error.message });
   }
 });
 /** end get todos by userid */
@@ -135,7 +135,7 @@ router.get("/get/priority", async (request, reply) => {
       .populate({ path: "user", select: "username role phone" });
     reply.send(todos);
   } catch (error) {
-    reply.status(500).send({ message: "Error getting todos", error });
+    reply.status(500).send({ message: "Error getting todos " + error.message });
   }
 });
 /** end get todos by priority */
@@ -152,7 +152,9 @@ router.delete("/:id", async (request, reply) => {
   } catch (err) {
     reply
       .status(500)
-      .send({ message: `Error deleting todo ${request.params.id}`, err });
+      .send({
+        message: `Error deleting todo ${request.params.id} ` + err.message,
+      });
   }
 });
 /** end delete a todo by id */
@@ -171,7 +173,9 @@ router.put("/:id", async (request, reply) => {
   } catch (err) {
     reply
       .status(500)
-      .send({ message: `Error updating todo ${request.params.id}`, err });
+      .send({
+        message: `Error updating todo ${request.params.id} ` + err.message,
+      });
   }
 });
 /** end update todo by id */
@@ -186,7 +190,7 @@ router.get("/get/count", async (request, reply) => {
       return reply.send({ TotalTodos: todocount });
     }
   } catch (error) {
-    return reply.status(500).send({ message: error });
+    return reply.status(500).send({ message: error.message });
   }
 });
 /** end count all todos */
@@ -204,7 +208,7 @@ router.get("/count/priority", async (request, reply) => {
       return reply.send({ TotalTodos: todocount });
     }
   } catch (error) {
-    return reply.status(500).send({ message: error });
+    return reply.status(500).send({ message: error.message });
   }
 });
 /** end count todos by priority*/
