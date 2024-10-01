@@ -1,6 +1,6 @@
 {
   "name": "express-starter-template",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Express starter template",
   "main": "index.js",
   "scripts": {
